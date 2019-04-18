@@ -1,0 +1,162 @@
+public class Sort {
+    public static void Swap(int[] a, int i, int j) {
+        int temp = a[i];
+        a[i] = a[j];
+        a[j] = temp;
+    }
+    public static void Display(int[] a, int n) {
+        for(int i = 0; i < n; i++) {
+            System.out.print(a[i] + " ");
+        }
+    }
+    public static void bubbleSort(int[] a, int n) {
+        for(int i = 0; i < n - 1; i++) {
+            for(int j = 0; j < n - 1 - i; j ++) {
+                if(a[j] > a[j + 1]) {
+                    Swap(a, j, j + 1);
+                }
+            }
+        }
+        Display(a, n);
+    }
+    public static void cocktailSort(int[] a, int n) {
+        int left = 0;
+        int right = n - 1;
+        while(left < right) {
+            for(int i = left; i < right; i++) {
+                if(a[i] > a[i + 1]) {
+                    Swap(a, i, i + 1);
+                }
+            }
+            right--;
+            for(int i = right; i > left; i--) {
+                if(a[i - 1] > a[i]) {
+                    Swap(a, i - 1, i);
+                }
+            }
+            left++;
+        }
+        Display(a, n);
+    }
+    public static void selectionSort(int[] a. int n) {
+        for(int i = 0; i < n - 1; i++) {
+            int min = i;
+            for(int j = i + 1; j < n; j++) {
+                if(a[j] < a[min]) {
+                    min = j;
+                }
+            }
+            if(min != i) {
+                Swap(a, min, i);
+            }
+        }
+    }
+    public static void insertSort(int[] a, int n) {
+        for(int i = 1; i < n; i++) {
+            int get = a[i];
+            int j = i - 1;
+            whilt(j >= 0 && a[j] > get) {
+                a[j + 1] = a[j];
+                j--;
+            }
+            a[j + 1] = get;
+        }
+        Display(a, n);
+    }
+    public static void insertSortDichotomy(int[] a, int n) {
+        for(int i = 1; i < n; i++) {
+            int get = a[i];
+            int left = 0;
+            int right = i - 1;
+            while(left <= right) {
+                int mid = (left + right) / 2;
+                if(a[mid] > get) {
+                    right = mid - 1;
+                }
+                else {
+                    left = mid + 1;
+                }
+            }
+            for(int j = i - 1; j >= left; j--) {
+                a[j + 1] = a[j];
+            }
+            a[left] = get;
+        }
+        Display(a, n);
+    }
+    public static void shellSort(int[] a, int n) {
+        for(int gap = n / 2; gap > 0; gap = gap / 2) {
+            for(int i = 0; i < gap; i++) {
+                for(int j = i + gap; j < n; j = j + gap) {
+                    int temp = a[j];
+                    int k = j - gap;
+                    while(k >= 0 && a[k] > temp) {
+                        a[k + gap] = a[k];
+                        k = k - gap;
+                    }
+                    a[k + gap] = temp;
+                }
+            }
+        }
+        Display(a, n);
+    }
+    
+    public static void heapSort(int[] a, int n) {
+        for(int i = n / 2 - 1; i >= 0; i--) {
+            heapify(a, i, n);
+        }
+        for(int j = n - 1; j > 0; j--) {
+            Swap(a, 0, j);
+            heapify(a, 0, j);
+        }
+        Display(a, n);
+    ]
+    
+    public static void quickSort(int[] a, int low, int high) {
+        if(i < j) {
+            return;
+        }
+        int i = low;
+        int j = high;
+        int key = a[low];
+        while(i < j) {
+            while(a[j] < key && i < j) {
+                j--;
+            }
+            while(a[i] > key && i < j) {
+                i++;
+            }
+            if(i < j) {
+                Swap(a, i, j);
+            }
+        }
+        Swap(a, low, i);
+        quickSort(a, low, i - 1);
+        quickSort(a, i + 1, high);
+    }
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int n = in.nextInt();
+        int[] a = new int[n];
+        for(int i = 0; i < n; i++) {
+            a[i] = in.nextInt();
+        }
+        bubbleSort(a, n);
+        System.out.println();
+        cocktailSort(a, n);
+        System.out.println();
+        selectionSort(a, n);
+        System.out.println();
+        insertSort(a, n);
+        System.out.println();
+        insertSortDichotomy(a, n);
+        System.out.println();
+        shellSort(a, n);
+        System.out.println();
+        heapSort(a, n);
+        System.out.println();
+        heapSort(a, 0, n - 1);
+        Display(a, n);
+        System.out.println();
+    }
+}
